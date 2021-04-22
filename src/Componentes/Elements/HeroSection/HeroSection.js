@@ -54,7 +54,7 @@ const  HeroSection = ({
     }
 
     const iniciaSesion = (email, pass) => {
-        history.push('/Administrator') 
+        history.push('/Administrator/Authentication/Usuarios') 
     }
 
     return (
