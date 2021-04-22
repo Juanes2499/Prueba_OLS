@@ -58,12 +58,8 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
   
   if (dataEntryType === 'input'){
     return (
-        <FormGroup key={key} >
-            <div className='label-maestra-field-box'>
-              <div className='label-box'>
-                <p className='label-field'  key={key} >{label} </p>
-              </div>
-              <SelectPickerMaestra key={key}  selectPickerType={selectPickerType} data={valueSelectPicker} handleOperator={handleOperator}/>
+        <FormGroup key={key}>
+              <p className='label-field'  key={key} >{label} </p>
               <FormControl
                   key={key}
                   name={name} 
@@ -75,7 +71,6 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                   {...rest}
               />
               <div style={{width:'3%', color:'white'}}>|   |</div>
-            </div>
         </FormGroup>
     );
   }else if(dataEntryType === 'toggle'){
@@ -85,7 +80,6 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                 <div className='label-box'>
                   <p className='label-field'  key={key} >{label} </p>
                 </div>
-                <SelectPickerMaestra key={key} data={valueSelectPicker} handleOperator={handleOperator}/>
                 <Toggle 
                     key={key}
                     size="lg" 
@@ -122,7 +116,6 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
           <div className='label-box'>
             <p className='label-field'  key={key} >{label} </p>
           </div>
-          <SelectPickerMaestra key={key} data={valueSelectPicker}handleOperator={handleOperator}/>
           <DatePicker 
             key={key}
             format="HH:mm"
@@ -138,40 +131,18 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
 }
 
 const lgStyle ={
-  field: {marginLeft:'1%', width: 230, height:35 , fontFamily: 'Roboto',fontSize:15}
+  field: { width: 300, height:35 , fontFamily: 'roboto',fontSize:15}
 }
 
 const mdStyle ={
-  field: {marginLeft:'3%', width: 200, height:35, fontFamily: 'Roboto',fontSize:15 }
+  field: { width: 200, height:35, fontFamily: 'roboto',fontSize:15 }
 }
 
 const smStyle ={
-  field: {marginLeft:'3%', width: 170, height:35, fontFamily: 'Roboto',fontSize:15 }
+  field: {width: 100, height:35, fontFamily: 'roboto',fontSize:15 }
 }
 
-const CustomToggle = ({ children, eventKey, callback }) => {
-  const currentEventKey = useContext(AccordionContext);
-
-  const decoratedOnClick = useAccordionToggle(
-    eventKey,
-    () => callback && callback(eventKey),
-  );
-
-  const isCurrentEventKey = currentEventKey === eventKey;
-
-  return (
-    <Button
-      type="button"
-      appearance='subtle'
-      style={{display:'flex', justifyContent:'center', alignItems:'center', alignContent:'center', backgroundColor: isCurrentEventKey ? 'rgb(217, 219, 219)' : 'white', marginLeft:'0%', borderRadius:'100%'}}
-      onClick={decoratedOnClick}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width='14.8' height='21' viewBox="0 0 16.7 15.49" style={{fill: 'white', stroke: '#2f286d', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth:'1.5px'}}><path className="a" d="M7.8,9.462H23L16.624,15.7v7.752l-2.49-2.435V15.7Z" transform="translate(-7.054 -8.712)"/></svg>
-    </Button>
-  );
-}
-
-const Filter = ({titleHeader, bottonsHeader, formFilter, configuration, actions, ...props}) => {
+const Filter = ({titleHeader, iconFilter, bottonsHeader, formFilter, configuration, actions, ...props}) => {
   
   const styleFields = (screenWidth) => {
     if (isWidthUp('lg', screenWidth)) {
@@ -186,54 +157,25 @@ const Filter = ({titleHeader, bottonsHeader, formFilter, configuration, actions,
 
   window.addEventListener('resize', styleFields); //Es un listener para detectar cuando cambia el tamaño de la pantalla
 
-  function getCols(screenWidth) {
-    if (isWidthUp('lg', screenWidth)) {
-      return 3;
-    }
-
-    if (isWidthUp('md', screenWidth)) {
-      return 2;
-    }
-
-    return 1;
-  }
-
-  const cols = getCols(props.width); // width is associated when using withWidth()
   const fieldStyle = styleFields(props.width);
-
+  
   return (
-    <div>
-      <Accordion>
+    <div style={{backgroundColor:'#FFF', borderRadius:'10px', height:'100%', display:'fixed'}}>
         <Card>
-          <Card.Header>
-            <div className='filter-container-header'>
+            <Card.Header>
               <div className='content-name'>
-                <span style={{fontFamily: 'Roboto', fontSize:25, fontWeight:'bolder', color: '#333333'}}>{titleHeader}</span>
+                <i className={iconFilter} style={{color: '#1d43ad', marginRight:'20px'}}></i>
+                <span style={{fontFamily: 'roboto', fontSize:25, fontWeight:'normal', color: '#1d43ad'}}>{titleHeader}</span>
               </div>
-              <div className='content-bottons'>
-                <CustomToggle eventKey="0" />
-                {
-                  bottonsHeader.map((item, index) => {
-                    return(
-                        <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%', borderRadius:'100%'}}>
-                            {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'0%'}}></i> : ''}
-                            <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
-                        </Button>
-                    )
-                  })
-                }
-              </div>
-            </div>
-          </Card.Header>
-          <Accordion.Collapse eventKey="0" >
+            </Card.Header>
             <div>
-              <Card.Body className='accordion-details'>
-                <GridList cellHeight={configuration.cellHeight} cols={cols}>
+              <Card.Body>
+                <GridList cellHeight={configuration.cellHeight} cols={1}>
                   {
                     formFilter.map((item, index)=>{
                       return(
                         <GridListTile key={index} className='container-filter'>
-                          <Form>
+                          <Form layout='vertical'>
                             <TypeField 
                                 key={index} 
                                 dataEntryType={item.dataEntryType}
@@ -248,7 +190,6 @@ const Filter = ({titleHeader, bottonsHeader, formFilter, configuration, actions,
                                 valueSelectPicker={operadoresConectoresFiltro}
                               />
                             </Form>
-                            
                         </GridListTile>
                       )
                     })
@@ -256,7 +197,7 @@ const Filter = ({titleHeader, bottonsHeader, formFilter, configuration, actions,
                 </GridList>
               </Card.Body>
               <Card.Footer>
-                <div style={{display:'flex', justifyContent:'flex-end', alignItems:'center', alignContent:'flex-end'}}>
+                <div style={{display:'flex', justifyContent:'center', alignItems:'center', alignContent:'center', marginTop:'25px', paddingBottom:'25px'}}>
                   {
                     actions.map((item, index) => {
                         return(
@@ -270,9 +211,7 @@ const Filter = ({titleHeader, bottonsHeader, formFilter, configuration, actions,
                 </div>
               </Card.Footer>
             </div>
-          </Accordion.Collapse>
         </Card>
-      </Accordion>
     </div>
   )
 }

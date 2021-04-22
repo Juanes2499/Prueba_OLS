@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Schema } from 'rsuite';
+import { Schema, Grid, Row, Col  } from 'rsuite';
 import '../global.css'
 
 //global
@@ -79,19 +79,6 @@ class Usuarios extends Component {
         },        
         FormModal : [
             {
-                name: "ID_USUARIO",
-                label: "ID Usuario",
-                type: "text",
-                dataEntryType:'input',
-                readOnly: true,
-                valueState: '',
-                hadlerValueState: (data) => {
-                    let newFormModal = this.state.FormModal;
-                    newFormModal[0].valueState = data;
-                    this.setState({FormModal: newFormModal});
-                },
-            },
-            {
                 name: "NOMBRES",
                 label: "Nombres",
                 type: "text",
@@ -100,7 +87,7 @@ class Usuarios extends Component {
                 valueState: '',
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
-                    newFormModal[1].valueState = data;
+                    newFormModal[0].valueState = data;
                     this.setState({FormModal: newFormModal});
                 },
             },
@@ -113,46 +100,33 @@ class Usuarios extends Component {
                 valueState: '',
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
-                    newFormModal[2].valueState = data;
-                    this.setState({FormModal: newFormModal});
-                },
-            },
-            {
-                name: "TIPO_DOC_ID",
-                label: "Tipo Documento",
-                type: "text",
-                dataEntryType:'input',
-                readOnly: true,
-                valueState: '',
-                hadlerValueState: (data) => {
-                    let newFormModal = this.state.FormModal;
-                    newFormModal[3].valueState = data;
+                    newFormModal[1].valueState = data;
                     this.setState({FormModal: newFormModal});
                 },
             },
             {
                 name: "NUMERO_DOC_ID",
-                label: "Número Documento",
+                label: "Identificación (C.C)",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
-                    newFormModal[4].valueState = data;
+                    newFormModal[2].valueState = data;
                     this.setState({FormModal: newFormModal});
                 },
             },
             {
-                name: "EMAIL",
-                label: "Email",
-                type: "email",
-                dataEntryType:'input',
-                readOnly: true,
-                valueState: '',
+                name: "ROL",
+                label: "Rol asociado",
+                type: "toggle",
+                dataEntryType:'toggle',
+                readOnly: false,
+                valueState: false,
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
-                    newFormModal[5].valueState = data;
+                    newFormModal[3].valueState = data;
                     this.setState({FormModal: newFormModal});
                 },
             },
@@ -165,15 +139,41 @@ class Usuarios extends Component {
                 valueState: false,
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
+                    newFormModal[4].valueState = data;
+                    this.setState({FormModal: newFormModal});
+                },
+            },
+            {
+                name: "TELEFONO",
+                label: "Teléfono",
+                type: "number",
+                dataEntryType:'input',
+                readOnly: true,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newFormModal = this.state.FormModal;
+                    newFormModal[5].valueState = data;
+                    this.setState({FormModal: newFormModal});
+                },
+            },
+            {
+                name: "EMAIL",
+                label: "Email",
+                type: "email",
+                dataEntryType:'input',
+                readOnly: true,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newFormModal = this.state.FormModal;
                     newFormModal[6].valueState = data;
                     this.setState({FormModal: newFormModal});
                 },
-            }
+            },
         ],
         formFilter:[
             {
-                name: "ID_USUARIO",
-                label: "ID Usuario",
+                name: "NOMBRES",
+                label: "Nombres",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -190,8 +190,8 @@ class Usuarios extends Component {
                 }
             },
             {
-                name: "NOMBRES",
-                label: "Nombres",
+                name: "APELLIDOS",
+                label: "Apellidos",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -208,8 +208,8 @@ class Usuarios extends Component {
                 }
             },
             {
-                name: "APELLIDOS",
-                label: "Apellidos",
+                name: "NUMERO_DOC_ID",
+                label: "Identidicación (C.C)",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -226,8 +226,8 @@ class Usuarios extends Component {
                 }
             },
             {
-                name: "TIPO_DOC_ID",
-                label: "Tipo Documento",
+                name: "ROL",
+                label: "Rol asociado",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -244,8 +244,8 @@ class Usuarios extends Component {
                 }
             },
             {
-                name: "NUMERO_DOC_ID",
-                label: "Número Documento",
+                name: "ESTADO",
+                label: "Estado",
                 type: "text",
                 dataEntryType:'input',
                 valueState: '',
@@ -262,9 +262,9 @@ class Usuarios extends Component {
                 }
             },
             {
-                name: "EMAIL",
-                label: "Email",
-                type: "email",
+                name: "TELEFONO",
+                label: "Teléfono",
+                type: "text",
                 dataEntryType:'input',
                 valueState: '',
                 operador: [],
@@ -280,10 +280,10 @@ class Usuarios extends Component {
                 }
             },
             {
-                name: "FECHA_CREACION",
-                label: "Fecha Creación",
-                type: "date",
-                dataEntryType:'datePicker',
+                name: "EMAIL",
+                label: "Email",
+                type: "email",
+                dataEntryType:'input',
                 valueState: '',
                 operador: [],
                 hadlerValueState: (data) => {
@@ -297,60 +297,6 @@ class Usuarios extends Component {
                     this.setState({formFilter: newOperator});
                 }
             },
-            {
-                name: "HORA_CREACION",
-                label: "Hora Creación",
-                type: "time",
-                dataEntryType:'timepicker',
-                valueState: '',
-                operador: [],
-                hadlerValueState: (data) => {
-                    let newFilterModal = this.state.formFilter;
-                    newFilterModal[7].valueState = data;
-                    this.setState({formFilter: newFilterModal});
-                },
-                handleOperator: (operador) => {
-                    let newOperator = this.state.formFilter;
-                    newOperator[7].operador = operador;
-                    this.setState({formFilter: newOperator});
-                }
-            },
-            {
-                name: "FECHA_ACTUALIZACION",
-                label: "Fecha Actualización",
-                type: "date",
-                dataEntryType:'datePicker',
-                valueState: '',
-                operador: [],
-                hadlerValueState: (data) => {
-                    let newFilterModal = this.state.formFilter;
-                    newFilterModal[8].valueState = data;
-                    this.setState({formFilter: newFilterModal});
-                },
-                handleOperator: (operador) => {
-                    let newOperator = this.state.formFilter;
-                    newOperator[8].operador = operador;
-                    this.setState({formFilter: newOperator});
-                }
-            },
-            {
-                name: "HORA_ACTUALIZACION_FILTER",
-                label: "Hora Actualización",
-                type: "time",
-                dataEntryType:'timepicker',
-                valueState: '',
-                operador: [],
-                hadlerValueState: (data) => {
-                    let newFilterModal = this.state.formFilter;
-                    newFilterModal[9].valueState = data;
-                    this.setState({formFilter: newFilterModal});
-                },
-                handleOperator: (operador) => {
-                    let newOperator = this.state.formFilter;
-                    newOperator[9].operador = operador;
-                    this.setState({formFilter: newOperator});
-                }
-            }
         ],
         newUserModal:[
             {
@@ -436,18 +382,9 @@ class Usuarios extends Component {
 
     columnasDataTable = [
         {
-            key: "ID_USUARIO",
-            text: "ID Usuario",
-            width: 300,
-            align: "left",
-            fixed: true,
-            resizable: true,
-            sortable: true
-        },
-        {
             key: "NOMBRES",
             text: "Nombres",
-            width: 200,
+            width: 190,
             align: "left",
             fixed: false,
             resizable: true,
@@ -456,15 +393,15 @@ class Usuarios extends Component {
         {
             key: "APELLIDOS",
             text: "Apellidos",
-            width: 200,
+            width: 190,
             align: "left",
             fixed: false,
             resizable: true,
             sortable: true
         },
         {
-            key: "TIPO_DOC_ID",
-            text: "Tipo Documento",
+            key: "NUMERO_DOC_ID",
+            text: "Identificación (C.C)",
             width: 150,
             align: "center",
             fixed: false,
@@ -472,9 +409,27 @@ class Usuarios extends Component {
             sortable: true
         },
         {
-            key: "NUMERO_DOC_ID",
-            text: "Número Documento",
-            width: 200,
+            key: "ROL",
+            text: "Rol asociado",
+            width: 150,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "ESTADO",
+            text: "Estado",
+            width: 100,
+            align: "left",
+            fixed: false,
+            resizable: true,
+            sortable: true
+        },
+        {
+            key: "TELEFONO",
+            text: "Teléfono",
+            width: 150,
             align: "left",
             fixed: false,
             resizable: true,
@@ -482,49 +437,13 @@ class Usuarios extends Component {
         },
         {
             key: "EMAIL",
-            text: "Email",
-            width: 300,
+            text: "Correo electrónico",
+            width: 190,
             align: "left",
             fixed: false,
             resizable: true,
             sortable: true
-        },
-        {
-            key: "FECHA_CREACION",
-            text: "Fecha Creación",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-            sortable: true
-        },
-        {
-            key: "HORA_CREACION",
-            text: "Hora Creación",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-            sortable: true
-        },
-        {
-            key: "FECHA_ACTUALIZACION",
-            text: "Fecha Actualización",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-            sortable: true
-        },
-        {
-            key: "HORA_ACTUALIZACION",
-            text: "Hora Actualización",
-            width: 200,
-            align: "left",
-            fixed: false,
-            resizable: true,
-            sortable: true
-        },
+        }
     ]
 
     bottonsActionsTable = {
@@ -798,23 +717,36 @@ class Usuarios extends Component {
         return (
             <div>
                 <div className='container-global'>
-                    <Filter
-                        key={2}
-                        titleHeader='Usuarios'
-                        bottonsHeader={this.bottonsHeaderFilter}
-                        formFilter={this.state.formFilter}
-                        configuration={configFilter}
-                        actions={this.bottonsFooterFilter}
-                    />
-                    <br/>
-                    <DataTableColAction 
-                        key={this.state.dataUsuario.id} 
-                        configuration={configTable} 
-                        data={this.state.dataUsuario} 
-                        columns={this.columnasDataTable} 
-                        handleOnRowClick={this.dataSeleccionado}
-                        buttonActions={this.bottonsActionsTable}
-                    />
+                    <Row>
+                        <Col className="rs-col-lg-18 rs-col-md-18 rs-col-xs-24 fixed">
+                            <div className="">
+                                <DataTableColAction 
+                                    key={this.state.dataUsuario.id} 
+                                    configuration={configTable} 
+                                    nameTable='Usuarios existentes'
+                                    iconTable='fas fa-users fa-2x'
+                                    data={this.state.dataUsuario} 
+                                    columns={this.columnasDataTable} 
+                                    handleOnRowClick={this.dataSeleccionado}
+                                    buttonActions={this.bottonsActionsTable}
+                                />
+                            </div>
+                        </Col>
+
+                        <Col>
+                            <div className="rs-col-lg-6 rs-col-md-6 rs-col-xs-6 fixed">
+                                <Filter
+                                    key={2}
+                                    titleHeader='Filtrar busqueda'
+                                    iconFilter='fas fa-search fa-2x'
+                                    bottonsHeader={this.bottonsHeaderFilter}
+                                    formFilter={this.state.formFilter}
+                                    configuration={configFilter}
+                                    actions={this.bottonsFooterFilter}
+                                />
+                            </div>
+                        </Col>
+                    </Row>
                 </div>
                 <ShowEditDataForm
                     key={3}

@@ -1,22 +1,28 @@
 export const configTable ={
     height: 400,
-    bordered: true,
+    bordered: false,
     cellBordered: false,
     autoHeight: false,
-    styleMargin:{
+    styleCard:{
         marginBottom:"0%",
+        backgroundColor:'#FFF', 
+        borderRadius:'10px', 
+        height:'73vh', 
+        display: 'fixed',
     },
-    style:{
-        borderRadius:'10px'
+    styleTable:{
+        borderRadius:'10px',
+        marginTop: '30px',
+        marginLeft: '20px',
+        marginRight: '20px',
+        marginBottom:'20px'
     },
     resizable: true,
     headerStyle: {
         display:'flex',
         fontFamily:'Roboto', 
         fontSize:'110%',
-        //color:'rgb(255, 255, 255)',
         color:'rgb(0, 0, 0)',
-        //backgroundColor:'rgb(0, 0, 0)'
     },
     cellStyle: {
         display:'flex',

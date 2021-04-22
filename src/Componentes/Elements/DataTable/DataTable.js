@@ -1,6 +1,8 @@
 import React, {Component, useState} from 'react'
 import { orderBy } from 'lodash';
-import { Table, IconButton, Icon, Button } from 'rsuite';
+import { Table, IconButton, Icon, Button, Grid, Row, Col} from 'rsuite';
+import Card from 'react-bootstrap/Card'
+import './DataTable.css';
 const { Column, HeaderCell, Cell, Pagination } = Table;
 
 
@@ -109,7 +111,7 @@ const ActionCell = ({ rowData, dataKey, buttons, ...props }) => {
     );
 };
 
-export const DataTableColAction = ({configuration, data, columns, buttonActions}) => {
+export const DataTableColAction = ({configuration, nameTable, iconTable, data, columns, buttonActions}) => {
 
     const [page, setPage] = useState(1);
     const [displayLength, setDisplayLength] = useState(5);
@@ -136,64 +138,85 @@ export const DataTableColAction = ({configuration, data, columns, buttonActions}
     }
 
     return (
-        <div style={configuration.styleMargin}>
-            <Table
-                width={configuration.width}
-                height={configuration.height}
-                data={getData(data)}
-                bordered={configuration.bordered}
-                cellBordered={configuration.cellBordered}
-                autoHeight={configuration.autoHeight}
-                style={configuration.style}
-                loading={loading}
-            >
-                {
-                    columns.map((item, index) => {
-                        return(
-                            <Column key={index} width={item.width} align={item.align} fixed={item.fixed} resizable={configuration.resizable}>
-                                <HeaderCell 
-                                    style={configuration.headerStyle} 
-                                >
-                                    {item.text}
-                                </HeaderCell>
-                                <Cell 
-                                    dataKey={item.key} 
-                                    style={configuration.cellStyle}
-                                />
-                            </Column>
-                        )
-                    })
-                }    
-                <Column width={configuration.ActionCellStyle.width} fixed='right'>
-                    <HeaderCell style={configuration.headerStyle}>Acciones</HeaderCell>
-                    <ActionCell dataKey={buttonActions.dataKey} buttons={buttonActions.actions}/>
-                </Column>       
-            </Table>
-            <Table.Pagination
-                lengthMenu={[
-                    {
-                        value: 5,
-                        label: 5
-                    },
-                    {
-                        value: 10,
-                        label: 10
-                    },
-                    {
-                        value: 15,
-                        label: 15
-                    },
-                    {
-                        value: 20,
-                        label: 20
-                    }
-                ]}
-                activePage={page}
-                displayLength={displayLength}
-                total={data.length}
-                onChangePage={handleChangePage}
-                onChangeLength={handleChangeLength}
-            />
+        <div style={configuration.styleCard}>
+            <Card>
+                <Card.Header>
+                    <Row>
+                        <Col className="rs-col-lg-12">
+                            <div className='content-name-table'>
+                                <i className={iconTable} style={{color: '#1d43ad', marginRight:'20px'}}></i>
+                                <span style={{fontFamily: 'roboto', fontSize:25, fontWeight:'normal', color: '#1d43ad'}}>{nameTable}</span>
+                            </div>
+                        </Col>
+                        <Col className="rs-col-lg-12">
+                            <div className='content-name-button'>
+                                <Button  style={{width:100, backgroundColor:'#1d43ad'}}>
+                                    <p className='button-table'> Crear</p>
+                                </Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </Card.Header>
+                <Card.Body>
+                    <Table
+                        width={configuration.width}
+                        height={configuration.height}
+                        data={getData(data)}
+                        bordered={configuration.bordered}
+                        cellBordered={configuration.cellBordered}
+                        autoHeight={configuration.autoHeight}
+                        style={configuration.styleTable}
+                        loading={loading}
+                    >
+                        {
+                            columns.map((item, index) => {
+                                return(
+                                    <Column key={index} width={item.width} align={item.align} fixed={item.fixed} resizable={configuration.resizable}>
+                                        <HeaderCell 
+                                            style={configuration.headerStyle} 
+                                        >
+                                            {item.text}
+                                        </HeaderCell>
+                                        <Cell 
+                                            dataKey={item.key} 
+                                            style={configuration.cellStyle}
+                                        />
+                                    </Column>
+                                )
+                            })
+                        }    
+                        <Column width={configuration.ActionCellStyle.width} fixed='right'>
+                            <HeaderCell style={configuration.headerStyle}>Acciones</HeaderCell>
+                            <ActionCell dataKey={buttonActions.dataKey} buttons={buttonActions.actions}/>
+                        </Column>       
+                    </Table>
+                    <Table.Pagination
+                        lengthMenu={[
+                            {
+                                value: 5,
+                                label: 5
+                            },
+                            {
+                                value: 10,
+                                label: 10
+                            },
+                            {
+                                value: 15,
+                                label: 15
+                            },
+                            {
+                                value: 20,
+                                label: 20
+                            }
+                        ]}
+                        activePage={page}
+                        displayLength={displayLength}
+                        total={data.length}
+                        onChangePage={handleChangePage}
+                        onChangeLength={handleChangeLength}
+                    />
+                </Card.Body>
+            </Card>
         </div>
     )
 
