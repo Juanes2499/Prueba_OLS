@@ -112,9 +112,7 @@
 .navbarcontainer{
   background: #FFF 0% 0% no-repeat padding-box;
   height: 60px;
-  align-items: center;
-  display: flex;
-  position: fixed;
+  padding-top: 10px;
 }
 
 
