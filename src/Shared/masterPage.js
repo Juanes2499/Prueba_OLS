@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter, Link } from "react-router-dom";
+import { withRouter} from "react-router-dom";
 import './masterPage.css';
 import { Container, Header, Content, Footer, Sidebar, Navbar, Nav, Dropdown, Icon, Sidenav } from 'rsuite';
-import * as FaIcons from 'react-icons/fa';
-import styled from "styled-components";
 
 //Elemts
 // import Footer from '../Componentes/Elements/Footer/Footer';
@@ -126,9 +124,7 @@ export const masterPage =  (ComposedComponent) => {
                             </Nav>
                         </Header>
                         <Content>
-                            {/* <div className='body-container'> */}
-                                <ComposedComponent {...this.props} />
-                            {/* </div> */}
+                            <ComposedComponent {...this.props} />
                         </Content>
                     </Container>
                 </Container>
