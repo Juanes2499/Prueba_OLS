@@ -1,0 +1,61 @@
+.filter-container-header{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 0%;
+}
+
+.content-name{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.content-bottons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.accordion-details{
+    margin-top: 2%;
+}
+
+.container-filter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.label-box{
+    width: 10rem;
+}
+
+.label-field{
+    color: grey;
+    font-family: "Roboto", sans-serif;
+    font-size: 100%;
+}
+
+.toggle-box{
+    display: grid;
+    justify-content: start;
+    align-items: center;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 5%;
+}
+
+.label-maestra-field-box{
+    display: grid;
+    justify-content: start;
+    align-items: center;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 0%;
+    width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+    .label-box{
+        width: 7rem;
+    }    
+}
