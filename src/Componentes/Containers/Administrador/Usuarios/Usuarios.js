@@ -525,9 +525,10 @@ class Usuarios extends Component {
     bottonsFooterModal = [
         {
             labelButton: "Actualizar",
-            color: "yellow",
-            appearance: "subtle",
+            appearance: "primary",
             icon: true,
+            style:{marginLeft:'1%', background: `linear-gradient(90deg, #89c146, #659c22)`, width:'100px'},
+            styleLabel: {fontFamily: 'roboto', fontSize:15, fontWeight:'lighter'},
             nameIcon: 'fas fa-user-edit',
             onClick: () => {
 
@@ -567,34 +568,12 @@ class Usuarios extends Component {
 
     bottonsFooterFilter = [
         {
-            labelButton: "Limpiar campos",
-            color: "blue",
-            appearance: "subtle",
-            icon: true,
-            nameIcon: 'fas fa-eraser',
-            onClick: () => {
-
-                let newFormFilter = this.state.formFilter;
-                
-                newFormFilter.forEach(x => {
-                    x.valueState = '';
-                })
-
-                this.setState({formFilter: newFormFilter});   
-                
-                UsuariosAction_ConsultarUsuarios()
-                    .then(result => {
-                        this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
-                    }).catch((err) => {
-                        Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
-                    })
-            },
-        },
-        {
-            labelButton: "Consultar",
+            labelButton: "Filtrar",
             color: "green",
-            appearance: "subtle",
+            appearance: "primary",
             icon: true,
+            style:{marginLeft:'1%', background: `linear-gradient(90deg, #89c146, #659c22)`, width:'100px'},
+            styleLabel: {fontFamily: 'roboto', fontSize:15, fontWeight:'lighter'},
             nameIcon: 'fas fa-search',
             onClick: () => {
         
@@ -621,6 +600,32 @@ class Usuarios extends Component {
                 })
             }
         },
+        {
+            labelButton: "Limpiar",
+            color: "blue",
+            appearance: "ghost",
+            icon: true,
+            style:{marginLeft:'1%', borderColor:'#659c22', width:'100px'},
+            styleLabel: {fontFamily: 'roboto', fontSize:15, fontWeight:'lighter', color:'#659c22'},
+            nameIcon: 'fas fa-eraser',
+            onClick: () => {
+
+                let newFormFilter = this.state.formFilter;
+                
+                newFormFilter.forEach(x => {
+                    x.valueState = '';
+                })
+
+                this.setState({formFilter: newFormFilter});   
+                
+                UsuariosAction_ConsultarUsuarios()
+                    .then(result => {
+                        this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                    }).catch((err) => {
+                        Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
+                    })
+            },
+        },
     ]
 
     bottonsHeaderFilter = [
@@ -635,10 +640,11 @@ class Usuarios extends Component {
 
     bottonsFooterModalNewUser = [
         {
-            labelButton: "Crear Usuario",
-            color: "green",
-            appearance: "subtle",
+            labelButton: "Aceptar",
+            appearance: "primary",
             icon: true,
+            style:{marginLeft:'1%', background: `linear-gradient(90deg, #89c146, #659c22)`, width:'100px'},
+            styleLabel: {fontFamily: 'roboto', fontSize:15, fontWeight:'lighter'},
             nameIcon: 'fas fa-plus',
             onClick: () => {
                 

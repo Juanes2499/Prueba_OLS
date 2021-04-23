@@ -57,7 +57,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                     unCheckedChildren="Inactivo"
                     checked={value}
                     onChange={handlerValue} 
-                    style={{width:300, fontFamily: 'Roboto',  fontSize:15}} 
+                    style={{width:300, fontFamily: 'Roboto',  fontSize:15, background: `linear-gradient(90deg, #89c146, #659c22)`}} 
                 />
             </FormGroup>
         );
@@ -128,19 +128,18 @@ const ShowEditDataForm = ({layaout, isActivate, tittleModal, handleClose, modelS
                 </Modal.Body>
                 <Modal.Footer>
                     <div style={{display:'flex', justifyContent:'center', alignItems:'center', alignContent:'center', marginTop:'25px', paddingBottom:'25px'}}>
-                        <Button onClick={handleClose} appearance="subtle" color='blue'>
-                            <span style={{fontFamily: 'Roboto', fontSize:15}}>Cancelar</span>
-                        </Button>
                         {
                             bottonFooter.map((item, index) => {
                                 return(
-                                    <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance}>
-                                        {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
-                                        <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
+                                    <Button key={index} onClick={item.onClick} appearance={item.appearance} style={item.style}> 
+                                        <span style={item.styleLabel}>{item.labelButton}</span>
                                     </Button>
                                 )
                             })
                         }
+                        <Button onClick={handleClose} appearance="ghost" style={{marginLeft:'1%', borderColor:'#659c22', width:'100px'}}>
+                            <span style={{fontFamily: 'roboto', fontSize:15, fontWeight:'lighter', color:'#659c22'}}>Cancelar</span>
+                        </Button>
                     </div>
                 </Modal.Footer>
             </Modal>

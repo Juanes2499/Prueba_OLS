@@ -201,9 +201,8 @@ const Filter = ({titleHeader, iconFilter, bottonsHeader, formFilter, configurati
                   {
                     actions.map((item, index) => {
                         return(
-                            <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance} style={{marginLeft:'1%'}}> 
-                                {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
-                                <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
+                            <Button key={index} onClick={item.onClick} appearance={item.appearance} style={item.style}> 
+                                <span style={item.styleLabel}>{item.labelButton}</span>
                             </Button>
                         )
                     })

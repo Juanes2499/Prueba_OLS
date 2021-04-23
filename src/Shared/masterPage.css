@@ -52,6 +52,7 @@
 
 .sidebar-body{
   height: 100vh;
+  display: fixed;
   background: linear-gradient(0deg, #2150b5, #41abef);
   z-index: 2;
 }
@@ -140,10 +141,10 @@
 }
 
 .nombre-user{
-  color: #3B3798;
-  font-family: 'Roboto';
-  font-size: 100%;
-  font-weight: bold ;
+  color: #333333;
+  font-family: 'roboto';
+  font-size: 17px;
+  font-weight: lighter ;
 }
 
 .email-user{
