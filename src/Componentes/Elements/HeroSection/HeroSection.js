@@ -80,13 +80,13 @@ const  HeroSection = ({
             </div> 
 
             <Row className="show-grid">
-                <Col xs={12}>
+                <Col xs={1} sm={4} md={10} >
                     <p className="hero-container-titulo1">{tittle}</p>
                     <p className="hero-container-titulo2">{tittle2}</p>
                     <p className="hero-container-subtitulo">{subtitulo}</p>
                 </Col>
 
-                <Col xs={12}>
+                <Col xs={23} sm={20} md={14}>
                     <div className='login-container'> 
                         <div className='login-container-block'>
                             <Form fluid >
