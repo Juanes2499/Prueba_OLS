@@ -26,7 +26,6 @@ export const LoginAction_InicialSesion = (email, password, auth) => {
 };
 
 export const LoginAction_CerrarSesion = () => {
-     cookies.remove('token', { path: '/' });
      history.push('/Home');
 }
 

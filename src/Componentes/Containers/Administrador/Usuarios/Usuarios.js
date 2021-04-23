@@ -55,8 +55,14 @@ const modelSchemaModal = Schema.Model({
 const modelSchemaModalNewUsuario = Schema.Model({
     NOMBRES: StringType().isRequired('Este campo es requerido'),
     APELLIDOS: StringType().isRequired('Este campo es requerido'),
-    TIPO_DOC_ID: StringType().isRequired('Este campo es requerido'),
     NUMERO_DOC_ID: StringType().isRequired('Este campo es requerido'),
+    ROL: StringType().isRequired('Este campo es requerido'),
+    TELEFONO: StringType().isRequired('Este campo es requerido'),
+    PASSWORD: StringType().isRequired('Este campo es requerido')
+                .minLength(10, 'La logintud mínima de la contraseña es 10')
+                .containsNumber('La contraseña debe contener números')
+                .containsUppercaseLetter('La contraseña debe contener letras mayúsculas')
+                .containsLowercaseLetter('La contraseña debe contener letras minúsculas'),
     EMAIL: StringType()
         .isEmail('Por favor ingresar un dirección de correo valido')
         .isRequired('Este campo es requerido'),
@@ -380,7 +386,7 @@ class Usuarios extends Component {
             {
                 name: "PASSWORD",
                 label: "Contraseña",
-                type: "email",
+                type: "password",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',

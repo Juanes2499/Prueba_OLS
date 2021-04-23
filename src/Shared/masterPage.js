@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { withRouter} from "react-router-dom";
 import './masterPage.css';
 import { Container, Header, Content, Footer, Sidebar, Navbar, Nav, Dropdown, Icon, Sidenav } from 'rsuite';
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
 //Elemts
 // import Footer from '../Componentes/Elements/Footer/Footer';
 import {LoginAction_CerrarSesion} from '../Acciones/Login/LoginAction';
 
-export const masterPage =  (ComposedComponent) => {      
+export const masterPage =  (ComposedComponent, ...props) => {      
     
     class global extends Component {
     
@@ -96,6 +95,7 @@ export const masterPage =  (ComposedComponent) => {
         render() {
 
         const { expand, hideExpand} = this.state;
+        const { history} = props;
         
         return (
             <div className="show-fake-browser sidebar-page">
@@ -166,7 +166,7 @@ export const masterPage =  (ComposedComponent) => {
                                         <svg 
                                             onClick={() => {
                                             LoginAction_CerrarSesion();
-                                                // history.push('/Home')
+                                                history.push('/Home')
                                             }}  
                                             xmlns="http://www.w3.org/2000/svg" 
                                             width="30" 
