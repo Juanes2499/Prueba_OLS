@@ -4,6 +4,7 @@ import {Row, Col } from 'rsuite';
 import { withRouter, Link} from "react-router-dom";
 import { Form, ButtonToolbar, Button, FormGroup, FormControl, Schema, InputGroup, Icon} from 'rsuite';
 import {auth} from '../../../firebaseconfig';
+import {Notify} from '../Notify/Notify';
 
 const TextField = (props) => {
     const { name,  placeholder, icon, accepter, type, handlerValue, ...rest } = props;
@@ -55,13 +56,21 @@ const  HeroSection = ({
     }
 
     const iniciaSesion = (email, pass) => {
-        auth.signInWithEmailAndPassword(email,pass)
+
+        if(email === '' || pass === '' ){
+            Notify('warning','Problemas iniciando sesión','Todos los campos son obligatorios.')
+        }else{
+            auth.signInWithEmailAndPassword(email,pass)
             .then(res => {
-                console.log(res)
+                history.push('/Administrator/Authentication/Usuarios') 
             }).catch(err => {
-                console.log(err)
+                if(err.code === "auth/wrong-password"){
+                    Notify('error','Error iniciando sesión',`Contraseña incorrecta`)
+                }else{
+                    Notify('error','Error iniciando sesión',`El correo electónico no existe`)
+                }
             })
-        history.push('/Administrator/Authentication/Usuarios') 
+        }
     }
 
     return (

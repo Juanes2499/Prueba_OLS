@@ -79,6 +79,19 @@ class Usuarios extends Component {
         },        
         FormModal : [
             {
+                name: "ID",
+                label: "ID",
+                type: "text",
+                dataEntryType:'input',
+                readOnly: true,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let newFormModal = this.state.FormModal;
+                    newFormModal[0].valueState = data;
+                    this.setState({FormModal: newFormModal});
+                },
+            },
+            {
                 name: "NOMBRES",
                 label: "Nombres",
                 type: "text",
@@ -87,7 +100,7 @@ class Usuarios extends Component {
                 valueState: '',
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
-                    newFormModal[0].valueState = data;
+                    newFormModal[1].valueState = data;
                     this.setState({FormModal: newFormModal});
                 },
             },
@@ -100,7 +113,7 @@ class Usuarios extends Component {
                 valueState: '',
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
-                    newFormModal[1].valueState = data;
+                    newFormModal[2].valueState = data;
                     this.setState({FormModal: newFormModal});
                 },
             },
@@ -113,30 +126,17 @@ class Usuarios extends Component {
                 valueState: '',
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
-                    newFormModal[2].valueState = data;
+                    newFormModal[3].valueState = data;
                     this.setState({FormModal: newFormModal});
                 },
             },
             {
                 name: "ROL",
                 label: "Rol asociado",
-                type: "toggle",
-                dataEntryType:'toggle',
+                type: "text",
+                dataEntryType:'input',
                 readOnly: false,
-                valueState: false,
-                hadlerValueState: (data) => {
-                    let newFormModal = this.state.FormModal;
-                    newFormModal[3].valueState = data;
-                    this.setState({FormModal: newFormModal});
-                },
-            },
-            {
-                name: "ACTIVO",
-                label: "Usuario Activo",
-                type: "toggle",
-                dataEntryType:'toggle',
-                readOnly: false,
-                valueState: false,
+                valueState: '',
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
                     newFormModal[4].valueState = data;
@@ -148,7 +148,7 @@ class Usuarios extends Component {
                 label: "Teléfono",
                 type: "number",
                 dataEntryType:'input',
-                readOnly: true,
+                readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
@@ -157,12 +157,12 @@ class Usuarios extends Component {
                 },
             },
             {
-                name: "EMAIL",
-                label: "Email",
-                type: "email",
-                dataEntryType:'input',
-                readOnly: true,
-                valueState: '',
+                name: "ACTIVO",
+                label: "Usuario Activo",
+                type: "toggle",
+                dataEntryType:'toggle',
+                readOnly: false,
+                valueState: false,
                 hadlerValueState: (data) => {
                     let newFormModal = this.state.FormModal;
                     newFormModal[6].valueState = data;
@@ -326,8 +326,8 @@ class Usuarios extends Component {
                 },
             },
             {
-                name: "TIPO_DOC_ID",
-                label: "Tipo Documento",
+                name: "NUMERO_DOC_ID",
+                label: "Identificación (C.C)",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
@@ -339,8 +339,8 @@ class Usuarios extends Component {
                 },
             },
             {
-                name: "NUMERO_DOC_ID",
-                label: "Número Documento",
+                name: "ROL",
+                label: "Rol asociado",
                 type: "text",
                 dataEntryType:'input',
                 readOnly: false,
@@ -352,15 +352,41 @@ class Usuarios extends Component {
                 },
             },
             {
-                name: "EMAIL",
-                label: "Email",
-                type: "email",
+                name: "TELEFONO",
+                label: "Teléfono",
+                type: "text",
                 dataEntryType:'input',
                 readOnly: false,
                 valueState: '',
                 hadlerValueState: (data) => {
                     let UserModal = this.state.newUserModal;
                     UserModal[4].valueState = data;
+                    this.setState({newUserModal: UserModal});
+                },
+            },
+            {
+                name: "EMAIL",
+                label: "Correo electrónico",
+                type: "email",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let UserModal = this.state.newUserModal;
+                    UserModal[5].valueState = data;
+                    this.setState({newUserModal: UserModal});
+                },
+            },
+            {
+                name: "PASSWORD",
+                label: "Contraseña",
+                type: "email",
+                dataEntryType:'input',
+                readOnly: false,
+                valueState: '',
+                hadlerValueState: (data) => {
+                    let UserModal = this.state.newUserModal;
+                    UserModal[6].valueState = data;
                     this.setState({newUserModal: UserModal});
                 },
             },
@@ -373,7 +399,7 @@ class Usuarios extends Component {
                 valueState: false,
                 hadlerValueState: (data) => {
                     let UserModal = this.state.newUserModal;
-                    UserModal[5].valueState = data;
+                    UserModal[7].valueState = data;
                     this.setState({newUserModal: UserModal});
                 },
             }
@@ -418,7 +444,7 @@ class Usuarios extends Component {
             sortable: true
         },
         {
-            key: "ESTADO",
+            key: "ACTIVO",
             text: "Estado",
             width: 100,
             align: "left",
@@ -447,25 +473,26 @@ class Usuarios extends Component {
     ]
 
     bottonsActionsTable = {
-        dataKey: 'ID_USUARIO',
+        dataKey: 'ID',
         actions: [
             {
                 appearance: "subtle",
                 nameIcon: 'fas fa-trash-alt',
                 onClick: (data, dataKey) => {
                     let dataJson = {};
-                    dataJson['id_usuario'] = data.ID_USUARIO;
+                    dataJson['ID'] = data.ID;
                     this.setState({
                         showConfirmacion: true,
                         tituloConfirmacion: 'Eliminar usuario',
-                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar el usaurio: ${data.NOMBRES} ${data.APELLIDOS} con ID USUARIO: ${data.ID_USUARIO} ?`,
+                        cuerpoConfirmacion: `La operación no es reversible una vez confirmada ¿Desea eliminar el/la usaurio: ${data.NOMBRES} ${data.APELLIDOS}?`,
                         handleAceptarConfirmacion: () => {
-                            UsuariosAction_EliminarUsuarios(dataJson).then(() => {
-                                Notify('success','Usuario eliminado',`El usuario: ${data.NOMBRES} ${data.APELLIDOS} con ID USUARIO: ${data.ID_USUARIO} ha sido eliminado existosamente`)
+                            UsuariosAction_EliminarUsuarios(dataJson)
+                            .then(() => {
+                                Notify('success','Usuario eliminado',`El/la usuario: ${data.NOMBRES} ${data.APELLIDOS} ha sido eliminado existosamente`)
                                 this.setState({dataActualizada: true})
                                 this.setState({showConfirmacion: false})
                             }).catch(() => {
-                                Notify('error','Usuario no eliminado',`El usuario: ${data.NOMBRES} ${data.APELLIDOS} con ID USUARIO: ${data.ID_USUARIO} no ha podido ser eliminado, comunicarse con el área de TI`)
+                                Notify('error','Usuario no eliminado',`El/la usuario: ${data.NOMBRES} ${data.APELLIDOS} no ha podido ser eliminado, comunicarse con el área de TI`)
                             })
                         }
                     }) 
@@ -478,13 +505,15 @@ class Usuarios extends Component {
                     this.setState({activateModal: true})
                     this.setState({dataSeleccionado: data})
 
+                    console.log(data)
+
                     let newFormModal = this.state.FormModal;
-                    newFormModal[0].valueState = data.ID_USUARIO
+                    newFormModal[0].valueState = data.ID
                     newFormModal[1].valueState = data.NOMBRES
                     newFormModal[2].valueState = data.APELLIDOS
-                    newFormModal[3].valueState = data.TIPO_DOC_ID
-                    newFormModal[4].valueState = data.NUMERO_DOC_ID
-                    newFormModal[5].valueState = data.EMAIL
+                    newFormModal[3].valueState = data.NUMERO_DOC_ID
+                    newFormModal[4].valueState = data.ROL
+                    newFormModal[5].valueState = data.TELEFONO
                     newFormModal[6].valueState = data.ACTIVO
 
                     this.setState({FormModal: newFormModal});
@@ -501,45 +530,35 @@ class Usuarios extends Component {
             icon: true,
             nameIcon: 'fas fa-user-edit',
             onClick: () => {
-                
+
                 let dataJson = {};
                 
-                let updateFormModal = this.state.FormModal;
-                dataJson['id_usuario'] = updateFormModal[0].valueState;
-                dataJson['nombres'] = updateFormModal[1].valueState;
-                dataJson['apellidos'] = updateFormModal[2].valueState;
-                dataJson['tipo_doc_id'] = updateFormModal[3].valueState;
-                dataJson['numero_doc_id'] = updateFormModal[4].valueState;
-                dataJson['email'] = updateFormModal[5].valueState;
-                dataJson['activo'] = updateFormModal[6].valueState;
-                dataJson['password'] = null;
+                let updateUsuario = this.state.FormModal;
 
                 let nullFields = [];
 
-                updateFormModal.forEach(x => {
+                updateUsuario.forEach(x => {
                     if (x.valueState === ''){
                         nullFields.push(x.label)
+                    }else{
+                        dataJson[`${x.name.toUpperCase()}`] = x.valueState
                     }
-                    
                 })
-                
+
+                console.log(dataJson)
+            
                 if(nullFields.length > 0){
                     Notify('warning','Problema actualizando usuario',`Los siguientes campos estan vacios: ${nullFields.toString().replace(/,/g,", ")}`)
                 }else{
                     UsuariosAction_actualizarUsuarios(dataJson).then(() => {
-                        Notify('success','Usuario creado',`El usuario: ${updateFormModal[1].valueState} ${updateFormModal[2].valueState} con correo electrónico: ${updateFormModal[5].valueState} ha sido actualizado existosamente`)
+                        Notify('success','Usuario actualizado',`El Usuario ${updateUsuario[0].valueState} ${updateUsuario[1].valueState} sido actualizado existosamente`)
                         this.setState({dataActualizada: true})
-                        updateFormModal[0].valueState = '';
-                        updateFormModal[1].valueState = '';
-                        updateFormModal[2].valueState = '';
-                        updateFormModal[3].valueState = '';
-                        updateFormModal[4].valueState = '';
-                        updateFormModal[5].valueState = '';
-                        updateFormModal[6].valueState = '';
-                        this.setState({FormModal: updateFormModal});
-                        this.closeModal();
-                    }).catch(() => {
-                        Notify('error','Usuario no creado',`El usuario: ${updateFormModal[1].valueState} ${updateFormModal[2].valueState} con correo electrónico: ${updateFormModal[5].valueState} no ha podido ser actualizado correctamente, comunicarse con el área de TI`)
+                        updateUsuario.forEach(x => {
+                            x.valueState = ''
+                        })
+                        this.setState({activateModal: false});
+                    }).catch((err) => {
+                        Notify('error','Usuario no actualizado',`Ha ocurrido un error actualizado el usuario`)
                     })
                 }
             },
@@ -606,11 +625,8 @@ class Usuarios extends Component {
 
     bottonsHeaderFilter = [
         {
-            labelButton: "",
-            color: "green",
-            appearance: "subtle",
-            icon: true,
-            nameIcon: 'fas fa-plus',
+            label: "Crear",
+            style:{width:100, backgroundColor:'#1d43ad'},
             onClick: () => {
                 this.setState({activateModalNewUser: true})
             }
@@ -629,12 +645,14 @@ class Usuarios extends Component {
                 let dataJson = {};
                 
                 let newUserModalNewUser = this.state.newUserModal;
-                dataJson['nombres'] = newUserModalNewUser[0].valueState;
-                dataJson['apellidos'] = newUserModalNewUser[1].valueState;
-                dataJson['tipo_doc_id'] = newUserModalNewUser[2].valueState;
-                dataJson['numero_doc_id'] = newUserModalNewUser[3].valueState;
-                dataJson['email'] = newUserModalNewUser[4].valueState;
-                dataJson['activo'] = newUserModalNewUser[5].valueState;
+                dataJson['NOMBRES'] = newUserModalNewUser[0].valueState;
+                dataJson['APELLIDOS'] = newUserModalNewUser[1].valueState;
+                dataJson['NUMERO_DOC_ID'] = newUserModalNewUser[2].valueState;
+                dataJson['ROL'] = newUserModalNewUser[4].valueState;
+                dataJson['TELEFONO'] = newUserModalNewUser[4].valueState;
+                dataJson['EMAIL'] = newUserModalNewUser[5].valueState;
+                dataJson['PASSWORD'] = newUserModalNewUser[6].valueState;
+                dataJson['ACTIVO'] = newUserModalNewUser[7].valueState;
 
                 let nullFields = [];
 
@@ -668,22 +686,6 @@ class Usuarios extends Component {
         }
     ]
 
-
-    dataSeleccionado = (data) => {
-        this.setState({activateModal: true})
-        this.setState({dataSeleccionado: data})
-
-        let newFormModal = this.state.FormModal;
-        newFormModal[0].valueState = data.ID_USUARIO
-        newFormModal[1].valueState = data.NOMBRES
-        newFormModal[2].valueState = data.APELLIDOS
-        newFormModal[3].valueState = data.TIPO_DOC_ID
-        newFormModal[4].valueState = data.NUMERO_DOC_ID
-        newFormModal[5].valueState = data.EMAIL
-        newFormModal[6].valueState = data.ACTIVO
-        this.setState({FormModal: newFormModal});
-    }
-
     closeModal = () => {
         this.setState({activateModal: false})
     }
@@ -695,7 +697,7 @@ class Usuarios extends Component {
     componentDidMount = () => {
         UsuariosAction_ConsultarUsuarios()
             .then(result => {
-                this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                this.setState({dataUsuario: result})
         }).catch((err) => {
             Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
         })
@@ -705,7 +707,7 @@ class Usuarios extends Component {
         if(this.state.dataActualizada === true){
             UsuariosAction_ConsultarUsuarios()
                 .then(result => {
-                    this.setState({dataUsuario: result.data.map((a, indice) => ({ ...a, id: indice + 1 }))})
+                    this.setState({dataUsuario: result})
                     this.setState({dataActualizada: false})    
                 }).catch((err) => {
                     Notify('error','Error consultado datos',`Ha ocurrido un problema consultado los datos, por favor recargar la página o vuleva a iniciar sesión.`)
@@ -728,6 +730,7 @@ class Usuarios extends Component {
                                     data={this.state.dataUsuario} 
                                     columns={this.columnasDataTable} 
                                     handleOnRowClick={this.dataSeleccionado}
+                                    buttonsHeader={this.bottonsHeaderFilter}
                                     buttonActions={this.bottonsActionsTable}
                                 />
                             </div>
@@ -762,7 +765,7 @@ class Usuarios extends Component {
                     key={4}
                     layaout = "vertical"
                     isActivate={this.state.activateModalNewUser}
-                    tittleModal={'Nuevo Usuario'}
+                    tittleModal={'Agregar nuevo usuario'}
                     handleClose={this.closeModalNewUser}
                     modelSchema={modelSchemaModalNewUsuario}
                     fields={this.state.newUserModal}

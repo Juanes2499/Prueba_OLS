@@ -1,6 +1,8 @@
 import React from 'react'
-import { Form, Button, FormGroup, FormControl, Toggle, SelectPicker } from 'rsuite';
+import { Form, Button, FormGroup, FormControl, Toggle, SelectPicker, Row, Col } from 'rsuite';
 import { Modal} from 'rsuite';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 import './ShowEditDataForm.css';
 
 const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValue, value, readOnly, placeHolderPicker, dataPicker, ...props }) => {
@@ -19,7 +21,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                     type={type} 
                     onChange={handlerValue} 
                     readOnly={readOnly} 
-                    style={{width:350, height:40 ,fontFamily: 'Roboto',  fontSize:15}} 
+                    style={{width:300, height:40 ,fontFamily: 'Roboto',  fontSize:15}} 
                     value={value}
                 />
             </FormGroup>
@@ -38,7 +40,7 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
                     type={type} 
                     onChange={handlerValue} 
                     readOnly={readOnly} 
-                    style={{width:350, fontFamily: 'Roboto',  fontSize:15}} 
+                    style={{width:300, fontFamily: 'Roboto',  fontSize:15}} 
                     value={value}
                 />
             </FormGroup>
@@ -47,32 +49,31 @@ const TypeField = ({dataEntryType, key, name, label, accepter, type, handlerValu
 
         return (
             <FormGroup key={key} >
-                <div className='toggle-box'>
-                    <p key={key} className='label-field'>{label}</p>
-                    <Toggle 
-                        key={key}
-                        size="lg" 
-                        checkedChildren="true" 
-                        unCheckedChildren="false"
-                        checked={value}
-                        onChange={handlerValue} 
-                    />
-                </div>
+                <p key={key} className='label-field'>{label}</p>
+                <Toggle 
+                    key={key}
+                    size="md" 
+                    checkedChildren="Activo" 
+                    unCheckedChildren="Inactivo"
+                    checked={value}
+                    onChange={handlerValue} 
+                    style={{width:300, fontFamily: 'Roboto',  fontSize:15}} 
+                />
             </FormGroup>
         );
     }else if(dataEntryType === 'selectpicker'){
 
         return (
             <FormGroup key={key} >
-                    <p key={key} className='label-field'>{label}</p>
-                    <SelectPicker
-                      size="md"
-                      placeholder={placeHolderPicker}
-                      data={dataPicker}
-                      style={{ width: 350, display: 'block', marginBottom: 1, fontFamily:'Roboto'}}
-                      onChange={handlerValue}
-                      defaultValue={value}
-                    />
+                <p key={key} className='label-field'>{label}</p>
+                <SelectPicker
+                    size="md"
+                    placeholder={placeHolderPicker}
+                    data={dataPicker}
+                    style={{ width: 350}}
+                    onChange={handlerValue}
+                    defaultValue={value}
+                />
             </FormGroup>
         );
     }
@@ -82,49 +83,65 @@ const ShowEditDataForm = ({layaout, isActivate, tittleModal, handleClose, modelS
     
     return (
         <div>
-            <Modal style={{top:'5%'}} show={isActivate}>
+            <Modal size="md" style={{marginTop:'5%'}} show={isActivate}>
                 <Modal.Header closeButton={false}>
-                    <div className='modal-header'>
-                        <p className='titulo-header'>{tittleModal}</p>
-                        <span className='cerrar-header'> <i className='fas fa-times fa-lg' onClick={handleClose}/> </span> 
-                    </div>
+                    <Row>
+                        <Col className="rs-col-lg-22 fixed">
+                            <div style={{display:'flex', alignContent: 'center'}}>
+                                <p className='titulo-header'>{tittleModal}</p>
+                            </div>
+                            
+                        </Col>
+                        
+                        <Col className="rs-col-lg-2 fixed">
+                            <div style={{marginTop:'13px', left:'0px'}}>
+                                <span className='cerrar-header'> <i className='fas fa-times fa-2x' onClick={handleClose}/> </span> 
+                            </div>
+                        </Col>
+                    </Row>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form className='modal-body' fluid model={modelSchema} layout={layaout}>
+                    <GridList cellHeight={90}  cols={2}  style={{width:'100%'}}>
+                    {
+                        fields.map((item, index) => {
+                            return(
+                                <GridListTile key={index}>
+                                    <Form className='modal-body' fluid model={modelSchema} layout={layaout}>
+                                        <TypeField 
+                                            key={index} 
+                                            dataEntryType={item.dataEntryType}
+                                            name={item.name} 
+                                            label={item.label} 
+                                            type={item.type} 
+                                            value={item.valueState}
+                                            handlerValue={item.hadlerValueState} 
+                                            readOnly={item.readOnly}
+                                            dataPicker={item.dataPicker}
+                                            placeHolderPicker={item.placeHolderPicker}
+                                        />
+                                    </Form>
+                                </GridListTile>
+                            ) 
+                        })
+                    }
+                    </GridList>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div style={{display:'flex', justifyContent:'center', alignItems:'center', alignContent:'center', marginTop:'25px', paddingBottom:'25px'}}>
+                        <Button onClick={handleClose} appearance="subtle" color='blue'>
+                            <span style={{fontFamily: 'Roboto', fontSize:15}}>Cancelar</span>
+                        </Button>
                         {
-                            fields.map((item, index) => {
+                            bottonFooter.map((item, index) => {
                                 return(
-                                    <TypeField 
-                                        key={index} 
-                                        dataEntryType={item.dataEntryType}
-                                        name={item.name} 
-                                        label={item.label} 
-                                        type={item.type} 
-                                        value={item.valueState}
-                                        handlerValue={item.hadlerValueState} 
-                                        readOnly={item.readOnly}
-                                        dataPicker={item.dataPicker}
-                                        placeHolderPicker={item.placeHolderPicker}
-                                    />
+                                    <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance}>
+                                        {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
+                                        <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
+                                    </Button>
                                 )
                             })
                         }
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={handleClose} appearance="subtle" color='blue'>
-                        <span style={{fontFamily: 'Roboto', fontSize:15}}>Cancelar</span>
-                    </Button>
-                    {
-                        bottonFooter.map((item, index) => {
-                            return(
-                                <Button key={index} onClick={item.onClick} color={item.color} appearance={item.appearance}>
-                                    {item.icon === true ? <i className={item.nameIcon} style={{marginRight:'7%'}}></i> : ''}
-                                    <span style={{fontFamily: 'Roboto', fontSize:15}}>{item.labelButton}</span>
-                                </Button>
-                            )
-                        })
-                    }
+                    </div>
                 </Modal.Footer>
             </Modal>
         </div>

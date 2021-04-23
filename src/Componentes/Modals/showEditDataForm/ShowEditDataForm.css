@@ -13,15 +13,15 @@
 }
 
 .titulo-header{
-    color: grey;
+    color: #333333;
     margin-top: 1%;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto';
     font-size: 200%;
 }
 
 .cerrar-header{
     margin-top: 70%;
-    color: grey;
+    color: red;
 }
 
 .modal-linea{

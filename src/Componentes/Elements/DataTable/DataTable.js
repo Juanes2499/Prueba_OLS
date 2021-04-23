@@ -111,7 +111,7 @@ const ActionCell = ({ rowData, dataKey, buttons, ...props }) => {
     );
 };
 
-export const DataTableColAction = ({configuration, nameTable, iconTable, data, columns, buttonActions}) => {
+export const DataTableColAction = ({configuration, nameTable, iconTable, data, columns, buttonsHeader, buttonActions}) => {
 
     const [page, setPage] = useState(1);
     const [displayLength, setDisplayLength] = useState(5);
@@ -150,9 +150,15 @@ export const DataTableColAction = ({configuration, nameTable, iconTable, data, c
                         </Col>
                         <Col className="rs-col-lg-12">
                             <div className='content-name-button'>
-                                <Button  style={{width:100, backgroundColor:'#1d43ad'}}>
-                                    <p className='button-table'> Crear</p>
-                                </Button>
+                                {
+                                    buttonsHeader.map((item, index) => {
+                                        return(
+                                            <Button  style={item.style} onClick={item.onClick}>
+                                                <p className='button-table'> {item.label}</p>
+                                            </Button>
+                                        )
+                                    })
+                                }
                             </div>
                         </Col>
                     </Row>
