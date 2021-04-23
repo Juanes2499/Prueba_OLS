@@ -166,7 +166,7 @@ export const masterPage =  (ComposedComponent, ...props) => {
                                         <svg 
                                             onClick={() => {
                                             LoginAction_CerrarSesion();
-                                                history.push('/Home')
+                                                //history.push('/Home')
                                             }}  
                                             xmlns="http://www.w3.org/2000/svg" 
                                             width="30" 
